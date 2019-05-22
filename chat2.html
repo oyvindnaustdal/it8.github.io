@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="no">
+    <head>
+        <meta charset="UTF-8">
+        <title>chat</title>
+        
+    </head>
+
+<body>
+    
+    <h1>CHAT</h1>
+    
+    <article id="txtMeldingar"></article>
+
+
+
+
+
+<script src="https://www.gstatic.com/firebasejs/5.8.6/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAVURwpo4GEGBefEn0qgUbEI-TXu1hH7Sg",
+    authDomain: "chat2-ae6bc.firebaseapp.com",
+    databaseURL: "https://chat2-ae6bc.firebaseio.com",
+    projectId: "chat2-ae6bc",
+    storageBucket: "",
+    messagingSenderId: "147833153185"
+  };
+  firebase.initializeApp(config);
+</script>
+
+<script>
+let txtMeldingar = document.getElementById("txtMeldingar");
+let database = firebase.database();
+let meldingar = database.ref("meldingar"); let nyMelding = {
+"sendar": "Kari Ku",
+"tekst": "Nu går alt så meget bedre" };
+meldingar.push(nyMelding);
+    
+    function visMelding(snapshot) {
+        var melding = snapshot.val();
+            txtMeldingar.innerHTML += `<p>${melding.sendar} seier ${melding.tekst}</p>`;
+    }
+    meldingar.on("child_added", visMelding);
+</script>
+
+        
+</body>
+        
+</html>
